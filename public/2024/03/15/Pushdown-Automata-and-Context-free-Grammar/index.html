@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>Pushdown Automata and Context-free Grammar - PlanarG&#039;s blog</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="PlanarG&#039;s blog"><meta name="msapplication-TileImage" content="/img/favicon.svg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="PlanarG&#039;s blog"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="Pushdown Automata下推自动机可以看作是 NFA 加入栈后的拓展版本。与 NFA 相比，PDA 的定义中多了一个“栈”的概念，一个 PDA 由六元组 $(Q, \Sigma, \Gamma, \delta, q_0, F)$ 组成。其中：  $Q, \Sigma, q_0, F$​ 与 NFA 的定义完全一致，它们分别表示状态，字符集，起始节点，接受节点集。 $\Gamma$ 是栈字"><meta property="og:type" content="blog"><meta property="og:title" content="Pushdown Automata and Context-free Grammar"><meta property="og:url" content="http://example.com/2024/03/15/Pushdown-Automata-and-Context-free-Grammar/"><meta property="og:site_name" content="PlanarG&#039;s blog"><meta property="og:description" content="Pushdown Automata下推自动机可以看作是 NFA 加入栈后的拓展版本。与 NFA 相比，PDA 的定义中多了一个“栈”的概念，一个 PDA 由六元组 $(Q, \Sigma, \Gamma, \delta, q_0, F)$ 组成。其中：  $Q, \Sigma, q_0, F$​ 与 NFA 的定义完全一致，它们分别表示状态，字符集，起始节点，接受节点集。 $\Gamma$ 是栈字"><meta property="og:locale" content="en_US"><meta property="og:image" content="https://pic1.zhimg.com/80/v2-b4b8a7bd0ed1cbaa1e55b9b518d4ea1c_1440w.webp"><meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Pumping_lemma_for_context-free_languages.svg/1920px-Pumping_lemma_for_context-free_languages.svg.png"><meta property="article:published_time" content="2024-03-15T07:44:44.000Z"><meta property="article:modified_time" content="2024-03-23T16:34:07.300Z"><meta property="article:author" content="PlanarG"><meta property="article:tag" content="Automata"><meta property="article:tag" content="Theoretical Computer Science (TCS)"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="https://pic1.zhimg.com/80/v2-b4b8a7bd0ed1cbaa1e55b9b518d4ea1c_1440w.webp"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2024/03/15/Pushdown-Automata-and-Context-free-Grammar/"},"headline":"Pushdown Automata and Context-free Grammar","image":["https://pic1.zhimg.com/80/v2-b4b8a7bd0ed1cbaa1e55b9b518d4ea1c_1440w.webp","https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Pumping_lemma_for_context-free_languages.svg/1920px-Pumping_lemma_for_context-free_languages.svg.png"],"datePublished":"2024-03-15T07:44:44.000Z","dateModified":"2024-03-23T16:34:07.300Z","author":{"@type":"Person","name":"PlanarG"},"publisher":{"@type":"Organization","name":"PlanarG's blog","logo":{"@type":"ImageObject","url":"http://example.com/img/logo.svg"}},"description":"Pushdown Automata下推自动机可以看作是 NFA 加入栈后的拓展版本。与 NFA 相比，PDA 的定义中多了一个“栈”的概念，一个 PDA 由六元组 $(Q, \\Sigma, \\Gamma, \\delta, q_0, F)$ 组成。其中：  $Q, \\Sigma, q_0, F$​ 与 NFA 的定义完全一致，它们分别表示状态，字符集，起始节点，接受节点集。 $\\Gamma$ 是栈字"}</script><link rel="canonical" href="http://example.com/2024/03/15/Pushdown-Automata-and-Context-free-Grammar/"><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.7.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><!-- hexo injector head_end start --><script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
+
+          const id = '#' + CSS.escape(location.hash.substring(1));
+          const $tabMenu = document.querySelector(`.tabs a[href="${id}"]`);
+          if (!$tabMenu) {
+            return;
+          }
+
+          const $tabMenuContainer = $tabMenu.parentElement.parentElement;
+          Array.from($tabMenuContainer.children).forEach($menu => $menu.classList.remove('is-active'));
+          Array.from($tabMenuContainer.querySelectorAll('a'))
+              .map($menu => document.getElementById($menu.getAttribute("href").substring(1)))
+              .forEach($content => $content.classList.add('is-hidden'));
+
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+          const $activeTab = document.querySelector(id);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.1.1"></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/logo.svg" alt="PlanarG&#039;s blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a><a class="navbar-item" href="/about">About</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a><a class="navbar-item search" title="Search" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item">Posted&nbsp;<time dateTime="2024-03-15T07:44:44.000Z" title="3/15/2024, 3:44:44 PM">2024-03-15</time></span><span class="level-item"><a class="link-muted" href="/categories/Theoretical-Computer-Science-TCS/">Theoretical Computer Science(TCS)</a><span> / </span><a class="link-muted" href="/categories/Theoretical-Computer-Science-TCS/Automata/">Automata</a></span><span class="level-item">12 minutes read (About 1856 words)</span></div></div><h1 class="title is-3 is-size-4-mobile">Pushdown Automata and Context-free Grammar</h1><div class="content"><h2 id="Pushdown-Automata"><a href="#Pushdown-Automata" class="headerlink" title="Pushdown Automata"></a>Pushdown Automata</h2><p>下推自动机可以看作是 <code>NFA</code> 加入栈后的拓展版本。与 <code>NFA</code> 相比，<code>PDA</code> 的定义中多了一个“栈”的概念，一个 <code>PDA</code> 由六元组 $(Q, \Sigma, \Gamma, \delta, q_0, F)$ 组成。其中：</p>
+<ul>
+<li>$Q, \Sigma, q_0, F$​ 与 <code>NFA</code> 的定义完全一致，它们分别表示状态，字符集，起始节点，接受节点集。</li>
+<li>$\Gamma$ 是栈字符集，它规定了栈中的每个元素可能是什么。我们常常通过往栈中压入或者弹出一个 <code>$</code> 来确保当前栈是空的。</li>
+<li>$\delta$ 同样是转移函数，但它与 <code>NFA</code> 的区别是引入了栈的状态。$\delta$ 函数接受当前状态、当前栈顶以及一个字符（当然，可以是空串 $\epsilon$），它的输出是一个目标节点以及对当前栈的操作（不从栈顶读字符并压入一个字符、弹出一个字符、更改栈顶字符或者保持栈不动）。更为形式化地说，$\delta$ 的定义是 $Q\times \Sigma_{\epsilon}\times \Gamma_{\epsilon}\to Q\times \Gamma_{\epsilon}$​（输入栈顶即将被替换的那个字符，输出新的栈顶）。</li>
+</ul>
+<span id="more"></span>
+
+<p>我们称字符串 $w$ 可以被这个 <code>PDA</code> 识别，当且仅当存在一系列状态 $s_0, \cdots, s_m$ 以及栈构成的字符串 $t_0, \cdots, t_m$，使得</p>
+<ul>
+<li>$s_0 &#x3D; q_0, t_0&#x3D;\epsilon$：一开始在起始节点；栈是空的</li>
+<li>对于每个 $i&#x3D; 0, 1, \cdots, m-1$，存在 $a, b\in \Gamma_{\epsilon}$，以及 $r\in \Gamma^*$ 使得 $t_i&#x3D;ar, t_{i +1}&#x3D;br$。且 $(s_{i+1}, b)\in\delta(s_i, w_{i+1},a)$。注意 $a, b$ 可以是空的，这就完成了对栈的操作。</li>
+<li>$s_m\in F$​，即必须在接受节点结束。</li>
+</ul>
+<h2 id="Context-free-Grammar"><a href="#Context-free-Grammar" class="headerlink" title="Context-free Grammar"></a>Context-free Grammar</h2><p>所谓上下文无关语法就是“只能通过一定规则生成”的语法。它的形式化定义由四元组 $(V,\Sigma,R,S)$ 构成，其中：</p>
+<ul>
+<li>$V$ 表示变量集合。所谓“变量”，在这里指的是满足特定规则的某个字符串（可以看作里面存的就是一个字符串，但是必须满足某些限制）</li>
+<li>$\Sigma$ 表示字符集合，它规定了字符串中可能出现的所有字符。</li>
+<li>$R$ 是规则集合，它规定了 $V$ 中变量必须服从的规则，每条规则会将一个 $V$ 中的变量和一个包含变量以及字符的字符串结合起来。或者它也可以看作若干条“文本替换规则”，即每次将当前字符串中的一个变量替换为另一个字符串（可能包含变量）。</li>
+<li>$S\in V$ 表示起始变量。</li>
+</ul>
+<p>我们称字符串 $w$ 能被此语法生成，当且仅当从 $S$ 能导出字符串 $w$。举个例子，考虑下面的上下文无关语法：<br>$$<br>G&#x3D;(\{S\}, \{a, b\}, R,S)\\\quad R: S\to aSb\ |\ SS\ |\ \epsilon<br>$$<br> 它能生成 <code>ab</code>，<code>abab</code>，<code>aabbab</code> 等等字符串。</p>
+<h2 id="Corelation"><a href="#Corelation" class="headerlink" title="Corelation"></a>Corelation</h2><p>事实上，<strong>下推自动机和上下文无关语法是等价的</strong>。即：任意下推自动机能表示的语言都能通过某种上下文无关语法生成，任意上下文无关语法都能对应一个下推自动机。证明由两个方向进行：</p>
+<article class="message is-primary message-immersive">
+  <div class="message-body">
+    1. 任意上下文无关语法都对应一个下推自动机。<br>
+    2. 任意下推自动机都对应一个上下文无关语法。
+  </div>
+</article>
+
+
+<p>可以发现，<code>1</code>  是较容易证明的。构造自动机的思路是，先让自动机不接受任何输入，生成所有可能的字符串堆在栈里（即每一种在自动机上的走法结束后，栈中留下的都是一种可能的字符串）。然后自动机开始接受字符串，将其与当前栈顶比较，只有二者完全相同才弹出栈。</p>
+<p>比如上面的那个例子，对于它我们可以构造出如下自动机：用 $x, y \to z$ 表示接受字符 $x$，取出栈顶并确认其为 $y$，向栈压入 $z$。</p>
+<ul>
+<li>起始节点 $q_0$，向节点 $q_1$ 连边 $\epsilon, \epsilon\to \text{\$}$，意思是往当前栈中压入一个特殊字符用于判断栈是否为空。</li>
+<li>节点 $q_1$ 向节点 $q_{loop}$ 连边 $\epsilon, \epsilon \to S$，这是因为起始字符是 $S$，意思是让当前字符串有一个字符 $S$。</li>
+<li>$q_{loop}$ 的连边有两种：<ol>
+<li>如果栈顶和接受字符串的第一个字符相同，那么弹出栈顶，对应向自己的连边 $a, a\to \epsilon $ 以及 $b, b\to \epsilon$。</li>
+<li>应用一条规则。比如规则 $S\to aSb$，如果栈顶为 $S$，则弹出栈顶，并相继压入 <code>b</code>，$S$​，<code>a</code>。</li>
+</ol>
+</li>
+<li>$q_{loop}$ 向接受节点 $q_{accept}$ 连边，弹出特殊字符用来确保当前栈为空。</li>
+</ul>
+<p>下图是规则 $S\to aTb|b, T\to Ta|\epsilon$ 的例子。</p>
+<p><img src="https://pic1.zhimg.com/80/v2-b4b8a7bd0ed1cbaa1e55b9b518d4ea1c_1440w.webp"></p>
+<p>接下来我们讨论关于 <code>2</code> 的证明。不妨假设这个自动机有 $k$ 个节点，我们生成 $k^2$ 个变量 $A_{pq}$，这里 $p,q$ 都是节点的编号，它用于表示所有从 $p$ 出发，并且出发时栈为空，能够到达 $q$ 且此时栈为空的字符串。那么，我们可以对其生成两种类型的规则。</p>
+<ol>
+<li>存在一个中间节点 $r$，使得自动机运行到节点 $r$ 时栈为空，那么根据定义可以构造出一条语法 $A_{pq}&#x3D;A_{pr}A_{rq}$。</li>
+<li>如果存在字符串 $w$ 能从 $p$ 走到 $q$，拿出 $w$ 的第一个字符 $a$ 以及最后一个字符 $b$，并且记录下 $w$ 第一步走到的节点 $r$ 以及到达 $q$ 之前的节点 $s$，生成语法 $A_{pq}&#x3D;aA_{rs}b$。由于 $\Sigma, Q$ 都是有限的，因此这样生成的规则也只有有限多条。</li>
+</ol>
+<p>通过对字符串 $w$ 的长度 $|w|$ 归纳，可以很方便地证明任意能在这个自动机上跑的字符串都能被我们构造出的语法生成。</p>
+<h2 id="对上下文无关语法的-Pumping-Lemma"><a href="#对上下文无关语法的-Pumping-Lemma" class="headerlink" title="对上下文无关语法的 Pumping Lemma"></a>对上下文无关语法的 Pumping Lemma</h2><article class="message is-dark">
+  <div class="message-header">
+    <p>Pumping Lemma</p>
+  </div>
+  <div class="message-body">
+    若 $A$ 是一种上下文无关语法，则存在一个数 $p$，使得对于 $A$ 能生成的任意字符串 $s$，如果 $|s| \ge p$，那么 $s$ 可以被划分为 $5$ 个部分 $uvxyz$，使得<br><br>
+    <li>对于任意的 $i\ge 0$，$uv^ixy^iz\in A$。</li>
+    <li>$vy$ 不为空。</li>
+    <li>$|vxy|\le p$。</li>
+  </div>
+</article>
+
+<p>只要 $s$ 足够长，那么生成出 $s$ 这个串对应的树形结构的深度就可以有保证。而这个深度一旦超过了点数，根据抽屉原理其中必然存在两个相同的变量（下图中的 $N$）。将深度更浅的 $N$ 对应的子树复制到深度更深的 $N$ 中，得到的串应当仍然满足上下文无关文法要求。</p>
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Pumping_lemma_for_context-free_languages.svg/1920px-Pumping_lemma_for_context-free_languages.svg.png" style="zoom:20%;" />
+</div><div class="article-licensing box"><div class="licensing-title"><p>Pushdown Automata and Context-free Grammar</p><p><a href="http://example.com/2024/03/15/Pushdown-Automata-and-Context-free-Grammar/">http://example.com/2024/03/15/Pushdown-Automata-and-Context-free-Grammar/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>Author</h6><p>PlanarG</p></div></div><div class="level-item is-narrow"><div><h6>Posted on</h6><p>2024-03-15</p></div></div><div class="level-item is-narrow"><div><h6>Updated on</h6><p>2024-03-24</p></div></div><div class="level-item is-narrow"><div><h6>Licensed under</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/Automata/">Automata</a><a class="link-muted mr-2" rel="tag" href="/tags/Theoretical-Computer-Science-TCS/">Theoretical Computer Science (TCS)</a></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2024/03/18/Tacos-lab1-directions/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">Tacos lab1 directions</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2024/03/14/Reminder/"><span class="level-item">Some warm tips</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--></div><div class="column column-left is-4-tablet is-4-desktop is-4-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar is-rounded" src="/img/avatar.png" alt="PlanarG"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">PlanarG</p><p class="is-size-6 is-block">an undergraduate student</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>Peking, China</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">Posts</p><a href="/archives"><p class="title">4</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Categories</p><a href="/categories"><p class="title">4</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Tags</p><a href="/tags"><p class="title">3</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/PlanarG" target="_blank" rel="noopener">Follow</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/PlanarG"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Mail" href="mailto:planarg@stu.pku.edu.cn"><i class="fa-solid fa-envelope"></i></a></div></div></div><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">Links</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://hexo.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Hexo</span></span><span class="level-right"><span class="level-item tag">hexo.io</span></span></a></li><li><a class="level is-mobile" href="https://bulma.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Bulma</span></span><span class="level-right"><span class="level-item tag">bulma.io</span></span></a></li></ul></div></div></div><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">Categories</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/Configuration/"><span class="level-start"><span class="level-item">Configuration</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/Operating-System/"><span class="level-start"><span class="level-item">Operating System</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/Theoretical-Computer-Science-TCS/"><span class="level-start"><span class="level-item">Theoretical Computer Science(TCS)</span></span><span class="level-end"><span class="level-item tag">1</span></span></a><ul><li><a class="level is-mobile" href="/categories/Theoretical-Computer-Science-TCS/Automata/"><span class="level-start"><span class="level-item">Automata</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li></ul></li></ul></div></div></div><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">Recents</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-03-18T02:47:11.000Z">2024-03-18</time></p><p class="title"><a href="/2024/03/18/Tacos-lab1-directions/">Tacos lab1 directions</a></p><p class="categories"><a href="/categories/Operating-System/">Operating System</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-03-15T07:44:44.000Z">2024-03-15</time></p><p class="title"><a href="/2024/03/15/Pushdown-Automata-and-Context-free-Grammar/">Pushdown Automata and Context-free Grammar</a></p><p class="categories"><a href="/categories/Theoretical-Computer-Science-TCS/">Theoretical Computer Science(TCS)</a> / <a href="/categories/Theoretical-Computer-Science-TCS/Automata/">Automata</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-03-14T15:42:50.000Z">2024-03-14</time></p><p class="title"><a href="/2024/03/14/Reminder/">Some warm tips</a></p><p class="categories"><a href="/categories/Configuration/">Configuration</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-03-14T03:47:51.989Z">2024-03-14</time></p><p class="title"><a href="/2024/03/14/hello-world/">Hello World</a></p></div></article></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">Archives</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2024/03/"><span class="level-start"><span class="level-item">March 2024</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">Tags</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/Automata/"><span class="tag">Automata</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Operating-System/"><span class="tag">Operating System</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Theoretical-Computer-Science-TCS/"><span class="tag">Theoretical Computer Science (TCS)</span><span class="tag">1</span></a></div></div></div></div></div><!--!--></div><div class="column column-right is-4-tablet is-4-desktop is-4-widescreen  order-3"><!--!--></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/logo.svg" alt="PlanarG&#039;s blog" height="28"></a><p class="is-size-7"><span>&copy; 2024 PlanarG</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p><p class="is-size-7">© 2019</p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("en");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="Back to top" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom",
+        content: {
+          message: "This website uses cookies to improve your experience.",
+          dismiss: "Got it!",
+          allow: "Allow cookies",
+          deny: "Decline",
+          link: "Learn more",
+          policy: "Cookie Policy",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><script type="text/javascript" id="MathJax-script" async>MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      svg: {
+        fontCache: 'global'
+      },
+      chtml: {
+        matchFontHeight: false
+      }
+    };</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js"></script><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="Type something..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"Type something...","untitled":"(Untitled)","posts":"Posts","pages":"Pages","categories":"Categories","tags":"Tags"});
+        });</script></body></html>
