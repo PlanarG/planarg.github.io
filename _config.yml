@@ -63,3 +63,5 @@ deploy:
   type: git
   repo: git@github.com:PlanarG/planarg.github.io.git
   branch: main
+sitemap:
+  path: sitemap.xml
