@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://planarg.cn/2024/03/28/Simplex-and-Linprog/</loc>
+    
+    <lastmod>2024-03-28</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://planarg.cn/2024/03/24/Fragment-of-my-Fantasy/</loc>
     
     <lastmod>2024-03-24</lastmod>
@@ -49,7 +58,7 @@
 
   <url>
     <loc>http://planarg.cn/</loc>
-    <lastmod>2024-03-25</lastmod>
+    <lastmod>2024-03-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -57,21 +66,28 @@
   
   <url>
     <loc>http://planarg.cn/tags/Automata/</loc>
-    <lastmod>2024-03-25</lastmod>
+    <lastmod>2024-03-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://planarg.cn/tags/Theoretical-Computer-Science-TCS/</loc>
-    <lastmod>2024-03-25</lastmod>
+    <lastmod>2024-03-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://planarg.cn/tags/Operating-System/</loc>
-    <lastmod>2024-03-25</lastmod>
+    <lastmod>2024-03-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://planarg.cn/tags/Algorithm/</loc>
+    <lastmod>2024-03-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
@@ -80,28 +96,35 @@
   
   <url>
     <loc>http://planarg.cn/categories/Theoretical-Computer-Science-TCS/</loc>
-    <lastmod>2024-03-25</lastmod>
+    <lastmod>2024-03-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://planarg.cn/categories/Configuration/</loc>
-    <lastmod>2024-03-25</lastmod>
+    <lastmod>2024-03-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://planarg.cn/categories/Theoretical-Computer-Science-TCS/Automata/</loc>
-    <lastmod>2024-03-25</lastmod>
+    <lastmod>2024-03-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://planarg.cn/categories/Operating-System/</loc>
-    <lastmod>2024-03-25</lastmod>
+    <lastmod>2024-03-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://planarg.cn/categories/Algorithm/</loc>
+    <lastmod>2024-03-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
