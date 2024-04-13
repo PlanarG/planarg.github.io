@@ -3,6 +3,7 @@ title: Simplex and Linprog
 date: 2024-03-28 12:23:47
 tags: Algorithm
 categories: Algorithm
+widgets:
 ---
 
 # 线性规划基础
