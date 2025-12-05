@@ -23,7 +23,7 @@ email: planarg@stu.pku.edu.cn
 description: >- # this means to ignore newlines until "baseurl:"
   Sijie Li is a fourth-year undergraduate student majoring in Informatics and Computing Science at Turing Class, [CFCS](https://cfcs.pku.edu.cn/english/), Peking University.
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://planarg.cn" # the base hostname & protocol for your site, e.g. http://example.com
 github_username:  PlanarG
 
 # Build settings
